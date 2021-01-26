@@ -18,12 +18,13 @@ Route::get('/', function () {
 });
 
 // Genera tutte le rotte relative all'autenticazione (login, registrazion, logout, forgot password ecc)
-Auth::routes();
+// Elimina la rotta di registrazione
+Auth::routes(["register"=>false]);
 
 // Rotta pubblica
 Route::get('/', 'HomeController@index')->name('index');
 
-//     prefisso URL    prefisso rotte   namespace del controller 
+//     prefisso URL    prefisso rotte   namespace del controller
 Route::prefix("admin")->name("admin.")->namespace("Admin")->middleware("auth")->group(function(){
     // Rotta homepage da loggati
     Route::get('/', 'HomeController@index')->name('index');
