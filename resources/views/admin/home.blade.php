@@ -1,3 +1,5 @@
+{{-- Homepage da loggati --}}
+
 @extends('layouts.app')
 
 @section('content')

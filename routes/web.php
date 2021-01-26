@@ -17,6 +17,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Genera tutte le rotte relative all'autenticazione (login, registrazion, logout, forgot password ecc)
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Rotta pubblica
+Route::get('/', 'HomeController@index')->name('index');
+
+//     prefisso URL    prefisso rotte   namespace del controller 
+Route::prefix("admin")->name("admin.")->namespace("Admin")->middleware("auth")->group(function(){
+    // Rotta homepage da loggati
+    Route::get('/', 'HomeController@index')->name('index');
+
+});
