@@ -1,6 +1,6 @@
 {{-- Homepage da loggati --}}
 
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 <div class="container">
