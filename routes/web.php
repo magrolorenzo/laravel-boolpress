@@ -29,5 +29,6 @@ Route::get('/contatti', 'HomeController@contatti')->name('contatti');
 Route::prefix("admin")->name("admin.")->namespace("Admin")->middleware("auth")->group(function(){
     // Rotta homepage da loggati
     Route::get('/', 'HomeController@index')->name('index');
-
+    
+    Route::resource("/posts", "PostController");
 });
