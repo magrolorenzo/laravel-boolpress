@@ -33,9 +33,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contatti') }}">Contatti</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>
-                        </li>
+                        @if (Auth::check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>
+                            </li>
+                        @endif
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
