@@ -1,5 +1,4 @@
-
-@extends('layouts.dashboard')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -11,19 +10,12 @@
                     <tr>
                         <th>ID</th>
                         <th>Titolo</th>
-                        <th>Slug</th>
-                        <th>Azioni</th>
                     </tr>
                     <tbody>
                         @foreach ($posts as $post)
                             <tr>
                                 <td>{{$post->id}}</td>
                                 <td>{{$post->title}}</td>
-                                <td>{{$post->slug}}</td>
-                                <td>
-                                    <a href="#" class="btn btn-success">Visualizza</a>
-
-                                </td>
                             </tr>
                         @endforeach
                     </tbody>
