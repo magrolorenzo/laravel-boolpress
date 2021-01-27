@@ -41,7 +41,27 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Prendo le info scritte nel form
+        $form_infos = $request->all();
+        // Creo un nuovo oggetto Post e lo compilo con le info
+        $new_post = new Post;
+        $new_post ->fill($form_infos);
+        
+        $slug_base = Str::slug($new_post->title);
+        $slug = $slug_base;
+        // Salvo il primo risultato della collection ritornata dalla query
+        $existing_post = Post::where("slug",$slug)->first();
+        $contatore = 1;
+
+        while($existing_post){
+            $slug = $slug_base . "-" . $contatore;
+            $contatore++;
+            $existing_post = Post::where("slug",$slug)->first();
+        }
+        $new_post->slug = $slug;
+
+        $new_post->save();
+        return redirect()->route('admin.posts.index');
     }
 
     /**

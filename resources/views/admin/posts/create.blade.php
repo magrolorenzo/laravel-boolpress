@@ -13,7 +13,7 @@
                     </a>
                 </div>
                 {{-- Form di edit --}}
-                <form action="" method="POST" >
+                <form action="{{ route('admin.posts.store') }}" method="POST" >
                     @csrf
 
                     {{-- Titolo --}}
