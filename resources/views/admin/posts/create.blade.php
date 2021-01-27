@@ -28,10 +28,12 @@
                         <input type="text" name="author" class="form-control" maxlength="255" required>
                     </div>
 
+
                     {{-- Data --}}
                     <div class="form-group">
                         <label>Data</label>
-                        <input type="date" name="date" class="form-control" </div>
+                        <input type="date" name="date" class="form-control">
+                    </div>
 
                     {{-- Corpo del post --}}
                     <div class="form-group">
@@ -40,17 +42,19 @@
                     </div>
 
 
-                    {{-- <div class="form-group">
+                    <div class="form-group">
                         <label>Categoria</label>
                         <select class="form-control" name="category_id">
-                            <option value="">-- seleziona categoria --</option>
+                            <option value="">
+                                Seleziona una categoria
+                            </option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected=selected' : '' }}>
-                                    {{ $category->name }}
+                                <option value="{{ $category->id }}">
+                                    {{ $category->id }} - {{ $category->name }}
                                 </option>
                             @endforeach
                         </select>
-                    </div> --}}
+                    </div>
 
                     {{-- Bottone --}}
                     <div class="form-group">

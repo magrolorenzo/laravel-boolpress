@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -30,7 +31,13 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view("admin.posts.create");
+        $categories = Category::all();
+
+        $data =[
+            "categories" => $categories
+        ];
+
+        return view("admin.posts.create", $data);
     }
 
     /**
@@ -73,6 +80,11 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where("slug",$slug)->first();
+
+        if(!$post){
+            abort(404);
+        }
+
         $data=[
             "post" => $post
         ];
@@ -88,10 +100,18 @@ class PostController extends Controller
     public function edit($slug)
     {
         $post = Post::where("slug",$slug)->first();
+
+        if(!$post){
+            abort(404);
+        }
+
+        $categories = Category::all();
+
         $data=[
-            "post" => $post
+            "post" => $post,
+            "categories" => $categories
         ];
-        return view("admin.posts.edit", compact("post", $data));
+        return view("admin.posts.edit", $data);
     }
 
     /**
@@ -103,6 +123,9 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        if(!$post){
+            abort(404);
+        }
         // Mi salvo i campi inseriti nel formi prendendoli dalla Request
         $edit_fields = $request->all();
         // Verifico se il titolo è stato modificato
@@ -135,7 +158,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy( Post $post)
+    public function destroy(Post $post)
     {
         $post->delete();
         return redirect()->route('admin.posts.index');

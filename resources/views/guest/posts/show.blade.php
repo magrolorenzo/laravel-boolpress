@@ -8,7 +8,7 @@
             <div class="col-12">
                 <h1>{{$post->title}}</h1>
                 <h2>Written by {{$post->author}}</h2>
-                <h5 class="text-info">Categoria: {{$post->category->name}}</h5>
+                <h5 class="text-info">Categoria:  {{$post->category ? $post->category->name : "N.A."}}</h5>
                 <p>{{$post->body}}</p>
             </div>
         </div>
