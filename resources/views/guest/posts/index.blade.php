@@ -1,3 +1,4 @@
+{{-- Pagina visualizzazione post PUBBLICA --}}
 @extends('layouts.app')
 
 @section('content')

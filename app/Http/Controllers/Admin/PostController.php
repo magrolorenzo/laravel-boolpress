@@ -49,13 +49,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return view("admin.posts.show", compact("post",$post));    
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the spe    cified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
