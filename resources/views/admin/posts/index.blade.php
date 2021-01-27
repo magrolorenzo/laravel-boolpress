@@ -22,10 +22,10 @@
                             <td>{{$post->title}}</td>
                             <td>{{$post->slug}}</td>
                             <td class="d-flex">
-                                <a href="{{route("admin.posts.show" , ["post"=> $post->id]) }}" class="btn btn-primary">
+                                <a href="{{route("admin.posts.show" , ["post"=> $post->id]) }}" class="btn btn-success">
                                     Visualizza
                                 </a>
-                                <a href="{{route("admin.posts.edit" , ["post"=> $post->id]) }}" class="btn btn-warning">
+                                <a href="{{route("admin.posts.edit" , ["post"=> $post->id]) }}" class="btn btn-primary">
                                     Modifica
                                 </a>
                                 <a href="#" class="btn btn-danger">
@@ -36,6 +36,11 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="">
+                <a href="{{route("admin.posts.create")}}" class="btn btn-success">
+                    + Crea un nuovo post
+                </a>
+            </div>
         </div>
     </div>
 </div>
