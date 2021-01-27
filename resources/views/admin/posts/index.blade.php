@@ -21,16 +21,21 @@
                             <td>{{$post->id}}</td>
                             <td>{{$post->title}}</td>
                             <td>{{$post->slug}}</td>
-                            <td class="d-flex">
-                                <a href="{{route("admin.posts.show" , ["post"=> $post->id]) }}" class="btn btn-success">
+                            <td class="d-flex ">
+                                <a href="{{route("admin.posts.show" , ["post"=> $post->slug]) }}" class="btn btn-success">
                                     Visualizza
                                 </a>
-                                <a href="{{route("admin.posts.edit" , ["post"=> $post->id]) }}" class="btn btn-primary">
+                                <a href="{{route("admin.posts.edit" , ["post"=> $post->slug]) }}" class="btn btn-primary">
                                     Modifica
                                 </a>
-                                <a href="#" class="btn btn-danger">
-                                    Elimina
-                                </a>
+                                {{-- Tasto di eliminazione post --}}
+                                <form action="{{route("admin.posts.destroy", ["post"=> $post->id]) }}" action="index.html" method="post">
+                                    @csrf
+                                    @method("DELETE")
+                                    <button type="submit" class="btn btn-danger">
+                                        Elimina
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

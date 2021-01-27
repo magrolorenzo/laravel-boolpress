@@ -46,7 +46,7 @@ class PostController extends Controller
         // Creo un nuovo oggetto Post e lo compilo con le info
         $new_post = new Post;
         $new_post ->fill($form_infos);
-        
+
         $slug_base = Str::slug($new_post->title);
         $slug = $slug_base;
         // Salvo il primo risultato della collection ritornata dalla query
@@ -70,9 +70,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($slug)
     {
-        return view("admin.posts.show", compact("post",$post));
+        $post = Post::where("slug",$slug)->first();
+        $data=[
+            "post" => $post
+        ];
+        return view("admin.posts.show", compact("post", $data));
     }
 
     /**
@@ -81,9 +85,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($slug)
     {
-        return view("admin.posts.edit", compact("post",$post));
+        $post = Post::where("slug",$slug)->first();
+        $data=[
+            "post" => $post
+        ];
+        return view("admin.posts.edit", compact("post", $data));
     }
 
     /**
@@ -127,8 +135,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy( Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('admin.posts.index');
     }
 }

@@ -13,6 +13,7 @@
         <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">
             🠔 Indietro
         </a>
+        
     </div>
 </div>
 @endsection
