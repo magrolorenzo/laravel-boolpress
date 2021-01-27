@@ -1,0 +1,21 @@
+{{-- Pagina visualizzazione post PUBBLICA --}}
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="col-12">
+                <h1>{{$post->title}}</h1>
+                <h2>Written by {{$post->author}}</h2>
+                <p>{{$post->body}}</p>
+            </div>
+        </div>
+        <div>
+            <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">
+                🠔 Indietro
+            </a>
+        </div>
+    </div>
+</div>
+@endsection

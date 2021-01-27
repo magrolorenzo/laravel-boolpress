@@ -20,14 +20,15 @@ use Illuminate\Support\Facades\Route;
 // Genera tutte le rotte relative all'autenticazione (login, registrazion, logout, forgot password ecc)
 
 // Elimina la rotta di registrazione
-Auth::routes();
-// Auth::routes(["register"=>false]);
+// Auth::routes();
+Auth::routes(["register"=>false]);
 
 // Rotta pubblica
 // Auth::routes();
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/contatti', 'HomeController@contatti')->name('contatti');
 Route::get('/posts', 'PostController@index')->name('posts.index');
+Route::get('/posts/{slug}', 'PostController@show')->name('posts.show');
 
 //     prefisso URL    prefisso rotte   namespace del controller
 Route::prefix("admin")->name("admin.")->namespace("Admin")->middleware("auth")->group(function(){
