@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
+use App\Tag;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -32,9 +33,11 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
         $data =[
-            "categories" => $categories
+            "categories" => $categories,
+            "tags" => $tags
         ];
 
         return view("admin.posts.create", $data);
@@ -50,6 +53,7 @@ class PostController extends Controller
     {
         // Prendo le info scritte nel form
         $form_infos = $request->all();
+        
         // Creo un nuovo oggetto Post e lo compilo con le info
         $new_post = new Post;
         $new_post ->fill($form_infos);
@@ -68,6 +72,8 @@ class PostController extends Controller
         $new_post->slug = $slug;
 
         $new_post->save();
+        $new_post->tags()->sync($form_infos["tags"]);
+
         return redirect()->route('admin.posts.index');
     }
 

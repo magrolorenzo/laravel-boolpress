@@ -9,7 +9,7 @@
                         Aggiungi Post
                     </h1>
                     <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">
-                         🠔 Indietro
+                        🠔 Indietro
                     </a>
                 </div>
                 {{-- Form di edit --}}
@@ -54,6 +54,19 @@
                                 </option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <div class="form-group">
+
+                        @foreach ($tags as $tag)
+                            <div class="form-check">
+                                <input name="tags[]" class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->slug}}">
+                                <label class="form-check-label" for="{{$tag->slug}}">
+                                    {{$tag->name}}
+                                </label>
+                            </div>
+                        @endforeach
+
                     </div>
 
                     {{-- Bottone --}}
