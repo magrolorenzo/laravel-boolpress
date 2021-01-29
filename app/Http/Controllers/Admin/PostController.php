@@ -72,7 +72,13 @@ class PostController extends Controller
         $new_post->slug = $slug;
 
         $new_post->save();
-        $new_post->tags()->sync($form_infos["tags"]);
+
+
+        if($request->input("tags")){
+            $new_post->tags()->sync($form_infos["tags"]);
+        } else{
+            $new_post->tags()->sync([]);
+        }
 
         return redirect()->route('admin.posts.index');
     }
@@ -137,7 +143,7 @@ class PostController extends Controller
         // Mi salvo i campi inseriti nel formi prendendoli dalla Request
         $edit_fields = $request->all();
         // Verifico se il titolo è stato modificato
-        dd($edit_fields);
+        // dd($request);
 
         if($edit_fields["title"] != $post->title){
 
@@ -158,8 +164,10 @@ class PostController extends Controller
 
         $post->update($edit_fields);
 
-        if($edit_fields["tags"]){
+        if($request->input("tags")){
             $post->tags()->sync($edit_fields["tags"]);
+        } else{
+            $post->tags()->sync([]);
         }
 
         return redirect()->route('admin.posts.index');
