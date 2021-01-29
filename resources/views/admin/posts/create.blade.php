@@ -56,8 +56,8 @@
                         </select>
                     </div>
 
+                    {{-- Checkbox Tag --}}
                     <div class="form-group">
-
                         @foreach ($tags as $tag)
                             <div class="form-check">
                                 <input name="tags[]" class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->slug}}">
@@ -66,7 +66,6 @@
                                 </label>
                             </div>
                         @endforeach
-
                     </div>
 
                     {{-- Bottone --}}

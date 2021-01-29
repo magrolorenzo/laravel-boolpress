@@ -56,6 +56,18 @@
                         </select>
                     </div>
 
+                    {{-- Checkbox Tag --}}
+                    <div class="form-group">
+                        @foreach ($tags as $tag)
+                            <div class="form-check">
+                                <input name="tags[]" class="form-check-input" type="checkbox" value="{{$tag->id}}" {{$post->tags->contains($tag) ? "checked" : ""}} id="{{$tag->slug}}">
+                                <label class="form-check-label" for="{{$tag->slug}}">
+                                    {{$tag->name}}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+
                     {{-- Bottone --}}
                     <div class="form-group">
                         <button type="submit" class="btn btn-success">
@@ -63,6 +75,7 @@
                         </button>
                     </div>
                 </form>
+
                 <form action="{{route("admin.posts.destroy", ["post"=> $post->id]) }}" action="index.html" method="post">
                     @csrf
                     @method("DELETE")
@@ -70,6 +83,7 @@
                         Elimina il post
                     </button>
                 </form>
+
             </div>
         </div>
     </div>

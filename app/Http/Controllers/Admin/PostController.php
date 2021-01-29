@@ -53,7 +53,7 @@ class PostController extends Controller
     {
         // Prendo le info scritte nel form
         $form_infos = $request->all();
-        
+
         // Creo un nuovo oggetto Post e lo compilo con le info
         $new_post = new Post;
         $new_post ->fill($form_infos);
@@ -106,6 +106,7 @@ class PostController extends Controller
     public function edit($slug)
     {
         $post = Post::where("slug",$slug)->first();
+        $tags = Tag::all();
 
         if(!$post){
             abort(404);
@@ -115,7 +116,8 @@ class PostController extends Controller
 
         $data=[
             "post" => $post,
-            "categories" => $categories
+            "categories" => $categories,
+            "tags" => $tags
         ];
         return view("admin.posts.edit", $data);
     }
@@ -135,6 +137,7 @@ class PostController extends Controller
         // Mi salvo i campi inseriti nel formi prendendoli dalla Request
         $edit_fields = $request->all();
         // Verifico se il titolo è stato modificato
+        dd($edit_fields);
 
         if($edit_fields["title"] != $post->title){
 
@@ -154,8 +157,12 @@ class PostController extends Controller
         }
 
         $post->update($edit_fields);
-        return redirect()->route('admin.posts.index');
 
+        if($edit_fields["tags"]){
+            $post->tags()->sync($edit_fields["tags"]);
+        }
+
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -166,6 +173,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->tags()->sync([]);
         $post->delete();
         return redirect()->route('admin.posts.index');
     }
