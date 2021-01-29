@@ -6,10 +6,32 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="col-12">
-                <h1>{{$post->title}}</h1>
-                <h2>Written by {{$post->author}}</h2>
-                <h5 class="text-info">Categoria:  {{$post->category ? $post->category->name : "N.A."}}</h5>
-                <p>{{$post->body}}</p>
+                {{-- Titolo --}}
+                <h1>
+                    {{$post->title}}
+                </h1>
+
+                {{-- Autore --}}
+                <h2>
+                    Written by {{$post->author}}
+                </h2>
+
+                {{-- Categoria --}}
+                <h5 class="text-info">
+                    Categoria:
+                    @if ($post->category)
+                        <a href="{{route("categories.show", ["slug"=>$post->category->slug])}}" class="badge badge-primary">
+                            {{$post->category->name}}
+                        </a>
+                    @else
+                        N.A.
+                    @endif
+                </h5>
+
+                {{-- Corop del post --}}
+                <p>
+                    {{$post->body}}
+                </p>
             </div>
         </div>
         <div>
