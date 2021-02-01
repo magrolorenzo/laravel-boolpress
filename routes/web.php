@@ -35,6 +35,7 @@ Route::get('/categories/{slug}', 'CategoryController@show')->name('categories.sh
 Route::prefix("admin")->name("admin.")->namespace("Admin")->middleware("auth")->group(function(){
     // Rotta homepage da loggati
     Route::get('/', 'HomeController@index')->name('index');
-
     Route::resource("/posts", "PostController");
+    Route::get('/profile', 'HomeController@profile')->name('profile');
+    Route::post('/profile/generate-token', 'HomeController@generateToken')->name('generate_token');
 });
