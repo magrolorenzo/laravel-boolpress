@@ -51,6 +51,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // VALIDAZIONE
+
+        $request->validate([
+            "title"=>"required|max:255",
+            "author"=>"required|max:255",
+            "data"=>"required",
+            "body"=>"required",
+            "category_id"=>"nullable|exists:categories,id",
+            "tags"=>"exists:tags,id"
+        ]);
+
         // Prendo le info scritte nel form
         $form_infos = $request->all();
 

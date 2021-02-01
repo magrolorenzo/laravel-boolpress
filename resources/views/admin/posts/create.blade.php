@@ -16,32 +16,41 @@
                 <form action="{{ route('admin.posts.store') }}" method="POST" >
                     @csrf
 
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     {{-- Titolo --}}
                     <div class="form-group">
                         <label>Titolo</label>
-                        <input type="text" name="title" class="form-control" maxlength="255" required>
+                        <input type="text" name="title" class="form-control" maxlength="255" required value="{{old("title")}}">
                     </div>
 
                     {{-- Autore --}}
                     <div class="form-group">
                         <label>Autore</label>
-                        <input type="text" name="author" class="form-control" maxlength="255" required>
+                        <input type="text" name="author" class="form-control" maxlength="255" required value="{{old("author")}}">
                     </div>
 
 
                     {{-- Data --}}
                     <div class="form-group">
                         <label>Data</label>
-                        <input type="date" name="date" class="form-control">
+                        <input type="date" name="date" class="form-control" value="{{old("data")}}">
                     </div>
 
                     {{-- Corpo del post --}}
                     <div class="form-group">
                         <label>Contenuto</label>
-                        <textarea name="body" class="form-control" rows="10" required></textarea>
+                        <textarea name="body" class="form-control" rows="10" required>{{old("body")}}</textarea>
                     </div>
 
-
+                    {{-- SELECT Categoria --}}
                     <div class="form-group">
                         <label>Categoria</label>
                         <select class="form-control" name="category_id">
@@ -49,7 +58,7 @@
                                 Seleziona una categoria
                             </option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">
+                                <option value="{{ $category->id }}" {{old("category_id") == $category->id ? "selected=selected" : ""  }}>
                                     {{ $category->id }} - {{ $category->name }}
                                 </option>
                             @endforeach
