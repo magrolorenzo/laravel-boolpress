@@ -17,31 +17,40 @@
                     @csrf
                     @method('PUT')
 
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     {{-- Titolo --}}
                     <div class="form-group">
                         <label>Titolo</label>
-                        <input type="text" name="title" class="form-control" value="{{ $post->title }}" maxlength="255" required>
+                        <input type="text" name="title" class="form-control" value="{{ old("title",$post->title) }}" maxlength="255" required>
                     </div>
 
                     {{-- Autore --}}
                     <div class="form-group">
                         <label>Autore</label>
-                        <input type="text" name="author" class="form-control" value="{{ $post->author }}" maxlength="255" required>
+                        <input type="text" name="author" class="form-control" value="{{ old("author",$post->author) }}" maxlength="255" required>
                     </div>
 
                     {{-- Data --}}
                     <div class="form-group">
                         <label>Data</label>
-                        <input type="date" name="date" class="form-control" value="{{ $post->date }}">
+                        <input type="date" name="date" class="form-control" value="{{ old("date",$post->date) }}" required>
                     </div>
 
                     {{-- Corpo del post --}}
                     <div class="form-group">
                         <label>Contenuto</label>
-                        <textarea name="body" class="form-control" rows="10" required>{{ $post->body }}</textarea>
+                        <textarea name="body" class="form-control" rows="10" required>{{ old("body",$post->body) }}</textarea>
                     </div>
 
-
+                    {{-- SELECT Categoria --}}
                     <div class="form-group">
                         <label>Categoria</label>
                         <select class="form-control" name="category_id">
@@ -49,7 +58,7 @@
                                 Seleziona una categoria
                             </option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected=selected' : '' }}>
+                                <option value="{{ $category->id }}" {{ $category->id == old("category_id", $post->category_id) ? 'selected=selected' : '' }}>
                                     {{ $category->id }} - {{ $category->name }}
                                 </option>
                             @endforeach
@@ -60,7 +69,14 @@
                     <div class="form-group">
                         @foreach ($tags as $tag)
                             <div class="form-check">
-                                <input name="tags[]" class="form-check-input" type="checkbox" value="{{$tag->id}}" {{$post->tags->contains($tag) ? "checked" : ""}} id="{{$tag->slug}}">
+
+                                @if ($errors->any())
+                                    {{-- Se c'è un errore di validazione, prendi i valori Old --}}
+                                    <input name="tags[]" class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->slug}}" {{in_array($tag->id, old("tags", [])) ? "checked=checked" : ""}}>
+                                @else
+                                    {{-- Se non c'è errore di validazione vuol dire che è la prima volta che carico la pagina di edit --}}
+                                    <input name="tags[]" class="form-check-input" type="checkbox" value="{{$tag->id}}" {{$post->tags->contains($tag) ? "checked" : ""}} id="{{$tag->slug}}">
+                                @endif
                                 <label class="form-check-label" for="{{$tag->slug}}">
                                     {{$tag->name}}
                                 </label>

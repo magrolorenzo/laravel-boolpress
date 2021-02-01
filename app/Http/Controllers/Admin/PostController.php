@@ -56,7 +56,7 @@ class PostController extends Controller
         $request->validate([
             "title"=>"required|max:255",
             "author"=>"required|max:255",
-            "data"=>"required",
+            "date"=>"required",
             "body"=>"required",
             "category_id"=>"nullable|exists:categories,id",
             "tags"=>"exists:tags,id"
@@ -151,6 +151,16 @@ class PostController extends Controller
         if(!$post){
             abort(404);
         }
+        // dd($request->all());
+        $request->validate([
+            "title"=>"required|max:255",
+            "author"=>"required|max:255",
+            "date"=>"required",
+            "body"=>"required",
+            "category_id"=>"nullable|exists:categories,id",
+            "tags"=>"exists:tags,id"
+        ]);
+
         // Mi salvo i campi inseriti nel formi prendendoli dalla Request
         $edit_fields = $request->all();
         // Verifico se il titolo è stato modificato
