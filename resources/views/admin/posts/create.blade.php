@@ -58,7 +58,7 @@
                                 Seleziona una categoria
                             </option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" {{old("category_id") == $category->id ? "selected=selected" : ""  }}>
+                                <option value="{{ $category->id }}" {{old("category_id") == $category->id ? "selected=selected" : ""}}>
                                     {{ $category->id }} - {{ $category->name }}
                                 </option>
                             @endforeach
@@ -69,7 +69,7 @@
                     <div class="form-group">
                         @foreach ($tags as $tag)
                             <div class="form-check">
-                                <input name="tags[]" class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->slug}}">
+                                <input name="tags[]" class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->slug}}" {{in_array($tag->id, old("tags", [])) ? "checked=checked" : ""}}>
                                 <label class="form-check-label" for="{{$tag->slug}}">
                                     {{$tag->name}}
                                 </label>
