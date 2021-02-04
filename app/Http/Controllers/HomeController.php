@@ -7,6 +7,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Lead;
 
+use App\Mail\MessageFromWebsite;
+use Illuminate\Support\Facades\Mail;
+
 class HomeController extends Controller
 {
     /**
@@ -47,6 +50,7 @@ class HomeController extends Controller
         $new_lead = new Lead();
         $new_lead->fill($form_data);
         $new_lead->save();
+        Mail::to("info@boolpress.com")->send(new MessageFromWebsite());
         return redirect()->route("contatti.thank-you");
     }
 }
