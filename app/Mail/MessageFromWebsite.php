@@ -20,7 +20,7 @@ class MessageFromWebsite extends Mailable
      */
     public function __construct($_lead)
     {
-        $this->$lead = $_lead;
+        $this->lead = $_lead;
     }
 
     /**
