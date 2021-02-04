@@ -5,7 +5,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Lead;
 
 class HomeController extends Controller
 {
@@ -34,5 +34,19 @@ class HomeController extends Controller
     public function contatti()
     {
         return view('guest.contatti');
+    }
+
+    public function thankYou()
+    {
+        return view('guest.thank-you');
+    }
+
+    public function contattiSent(Request $request)
+    {
+        $form_data = $request->all();
+        $new_lead = new Lead();
+        $new_lead->fill($form_data);
+        $new_lead->save();
+        return redirect()->route("contatti.thank-you");
     }
 }
