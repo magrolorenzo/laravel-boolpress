@@ -50,7 +50,7 @@ class HomeController extends Controller
         $new_lead = new Lead();
         $new_lead->fill($form_data);
         $new_lead->save();
-        Mail::to("info@boolpress.com")->send(new MessageFromWebsite());
+        Mail::to("info@boolpress.com")->send(new MessageFromWebsite($new_lead));
         return redirect()->route("contatti.thank-you");
     }
 }
