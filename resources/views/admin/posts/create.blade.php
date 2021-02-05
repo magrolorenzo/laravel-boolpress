@@ -13,7 +13,7 @@
                     </a>
                 </div>
                 {{-- Form di edit --}}
-                <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
+                <form enctype="multipart/form-data" action="{{ route('admin.posts.store') }}" method="POST" >
                     @csrf
 
                     @if ($errors->any())
@@ -79,8 +79,10 @@
 
                     {{-- Input immagine cover --}}
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">Inserisci Cover Image</label>
-                        <input type="file" name="image_cover" class="form-control-file">
+                        <label>
+                            Inserisci Cover Image
+                        </label>
+                        <input type="file" name="image_cover" class="form-control-file"  accept="image/*">
                     </div>
 
                     {{-- Bottone --}}
