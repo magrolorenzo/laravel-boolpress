@@ -9,11 +9,11 @@
                         Modifica post {{ $post->id }}
                     </h1>
                     <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">
-                         🠔 Indietro
+                        🠔 Indietro
                     </a>
                 </div>
                 {{-- Form di edit --}}
-                <form action="{{route("admin.posts.update", ["post" => $post->id])}}" method="POST" >
+                <form action="{{route("admin.posts.update", ["post" => $post->id])}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -26,6 +26,7 @@
                             </ul>
                         </div>
                     @endif
+
                     {{-- Titolo --}}
                     <div class="form-group">
                         <label>Titolo</label>
@@ -82,6 +83,23 @@
                                 </label>
                             </div>
                         @endforeach
+                    </div>
+
+
+                    {{-- Input immagine cover --}}
+                    <div class="form-group">
+                        {{-- Immagine del post --}}
+                        @if($post->cover)
+                            <div class="cover-container">
+                                <img src="{{asset("storage/".$post->cover)}}" alt="">
+                            </div>
+                        @else
+                            <div class="">
+                                <h5>-- Nessuna immagine di copertina --</h5>
+                            </div>
+                        @endif
+                        <label>Inserisci Cover Image</label>
+                        <input type="file" name="image_cover" class="form-control-file">
                     </div>
 
                     {{-- Bottone --}}

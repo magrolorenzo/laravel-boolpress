@@ -25,6 +25,18 @@
             <p>
                 {{$post->body}}
             </p>
+
+            {{-- Immagine del post --}}
+            @if($post->cover)
+                <div class="cover-container">
+                    <img src="{{asset("storage/".$post->cover)}}" alt="">
+                </div>
+            @else
+                <div class="">
+                    <h5>-- Nessuna immagine di copertina --</h5>
+                </div>
+            @endif
+
         </div>
     </div>
     <div>

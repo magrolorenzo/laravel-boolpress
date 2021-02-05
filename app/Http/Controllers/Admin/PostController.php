@@ -60,7 +60,8 @@ class PostController extends Controller
             "date"=>"required",
             "body"=>"required",
             "category_id"=>"nullable|exists:categories,id",
-            "tags"=>"exists:tags,id"
+            "tags"=>"exists:tags,id",
+            "image_cover"=>"nullable|image|max:512"
         ]);
 
         // Prendo le info scritte nel form
@@ -162,6 +163,7 @@ class PostController extends Controller
         if(!$post){
             abort(404);
         }
+
         // dd($request->all());
         $request->validate([
             "title"=>"required|max:255",
@@ -169,13 +171,21 @@ class PostController extends Controller
             "date"=>"required",
             "body"=>"required",
             "category_id"=>"nullable|exists:categories,id",
-            "tags"=>"exists:tags,id"
+            "tags"=>"exists:tags,id",
+            "image_cover" => "nullable|image|max:512"
         ]);
 
         // Mi salvo i campi inseriti nel formi prendendoli dalla Request
         $edit_fields = $request->all();
         // Verifico se il titolo è stato modificato
-        // dd($request);
+
+
+        // Controllo se è stata caricata l'immagine
+        if(array_key_exists("image_cover", $edit_fields)){
+            // Salvo l img e recupero la path
+            $cover_path = Storage::put("post_covers", $edit_fields["image_cover"]);
+            $edit_fields["cover"] = $cover_path;
+        }
 
         if($edit_fields["title"] != $post->title){
 
