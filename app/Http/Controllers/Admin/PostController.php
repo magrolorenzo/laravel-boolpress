@@ -8,6 +8,7 @@ use App\Post;
 use App\Category;
 use App\Tag;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -64,6 +65,16 @@ class PostController extends Controller
 
         // Prendo le info scritte nel form
         $form_infos = $request->all();
+
+        // dd($form_infos);
+
+        // Controllo se è stata caricata l'immagine
+        if(array_key_exists("image_cover", $form_infos)){
+            // Salvo l img e recupero la path
+            $cover_path = Storage::put("post_covers", $form_infos["image_cover"]);
+            $form_infos["cover"] = $cover_path;
+            // dd($form_infos);
+        }
 
         // Creo un nuovo oggetto Post e lo compilo con le info
         $new_post = new Post;
