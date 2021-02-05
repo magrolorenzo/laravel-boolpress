@@ -11,6 +11,10 @@
                     {{$post->title}}
                 </h1>
 
+                <div class="cover-container">
+                    <img src="{{asset("storage/".$post->cover)}}" alt="">
+                </div>
+
                 {{-- Autore --}}
                 <h2>
                     Written by {{$post->author}}
