@@ -61,7 +61,7 @@ class PostController extends Controller
             "body"=>"required",
             "category_id"=>"nullable|exists:categories,id",
             "tags"=>"exists:tags,id",
-            "image_cover"=>"nullable|image|max:512"
+            "image_cover"=>"nullable| mimes:jpeg,jpg,png|max:512"
         ]);
 
         // Prendo le info scritte nel form
@@ -171,8 +171,8 @@ class PostController extends Controller
             "date"=>"required",
             "body"=>"required",
             "category_id"=>"nullable|exists:categories,id",
-            "tags"=>"exists:tags,id"
-            // "image_cover" => "nullable|image|max:512"
+            "tags"=>"exists:tags,id",
+            "image_cover"=>"nullable| mimes:jpeg,jpg,png|max:512"
         ]);
 
         // Mi salvo i campi inseriti nel formi prendendoli dalla Request
@@ -181,11 +181,11 @@ class PostController extends Controller
 
 
         // Controllo se è stata caricata l'immagine
-        // if(array_key_exists("image_cover", $edit_fields)){
-        //     // Salvo l img e recupero la path
-        //     $cover_path = Storage::put("post_covers", $edit_fields["image_cover"]);
-        //     $edit_fields["cover"] = $cover_path;
-        // }
+        if(array_key_exists("image_cover", $edit_fields)){
+            // Salvo l img e recupero la path
+            $cover_path = Storage::put("post_covers", $edit_fields["image_cover"]);
+            $edit_fields["cover"] = $cover_path;
+        }
 
         if($edit_fields["title"] != $post->title){
 
